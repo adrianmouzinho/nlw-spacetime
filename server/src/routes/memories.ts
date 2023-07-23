@@ -23,6 +23,7 @@ export async function memoriesRoutes(app: FastifyInstance) {
         id: memory.id,
         coverUrl: memory.coverUrl,
         excerpt: memory.content.substring(0, 115).concat('...'),
+        createdAt: memory.createdAt,
       }
     })
   })
@@ -51,7 +52,7 @@ export async function memoriesRoutes(app: FastifyInstance) {
     const bodySchema = z.object({
       content: z.string(),
       coverUrl: z.string(),
-      isPublic: z.boolean().default(false),
+      isPublic: z.coerce.boolean().default(false),
     })
 
     const { content, coverUrl, isPublic } = bodySchema.parse(request.body)
